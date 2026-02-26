@@ -20,24 +20,33 @@ const Login: React.FC<LoginProps> = ({ isRegister = false }) => {
     e.preventDefault();
     setError('');
 
-    try {
-      if (isRegisterMode) {
-        if (!username || !email || !password) {
-          setError('All fields are required');
-          return;
-        }
-        await register(username, email, password);
-      } else {
-        if (!email || !password) {
-          setError('Email and password are required');
-          return;
-        }
-        await login(email, password);
-      }
-      navigate('/library');
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+try {
+  if (isRegisterMode) {
+    if (!username || !email || !password) {
+      setError('All fields are required');
+      return;
     }
+
+    await register(username, email, password);
+
+    alert("Registration successful! 🎉");
+
+  } else {
+    if (!email || !password) {
+      setError('Email and password are required');
+      return;
+    }
+
+    await login(email, password);
+
+    alert("Login successful! 🎉");
+  }
+
+  navigate('/library');
+
+} catch (err: any) {
+  setError(err.message || 'An error occurred');
+}
   };
 
   const toggleMode = () => {
